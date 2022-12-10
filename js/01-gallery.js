@@ -25,11 +25,15 @@ function createGalleryItems(images) {
     .join("");
 }
 
+
+
 function onClickImage(evt) {
   evt.preventDefault();
+
   if (evt.target.nodeName !== "IMG") {
     return;
   }
+
   const instance = basicLightbox.create(
     `<img
       class="gallery__image"
@@ -38,17 +42,17 @@ function onClickImage(evt) {
     />`
   );
   instance.show();
+
+  gallery.addEventListener("keydown", evt => {
+    {
+      if (evt.key !== "Escape") {
+        return;
+      }
+      instance.close();
+    }
+  });
+
 }
 
 gallery.addEventListener("click", onClickImage);
 
-// <div class="gallery__item">
-//   <a class="gallery__link" href="large-image.jpg">
-//     <img
-//       class="gallery__image"
-//       src="small-image.jpg"
-//       data-source="large-image.jpg"
-//       alt="Image description"
-//     />
-//   </a>
-// </div>; */}
