@@ -25,11 +25,8 @@ function createGalleryItems(images) {
     .join("");
 }
 
-
-
 function onClickImage(evt) {
   evt.preventDefault();
-
   if (evt.target.nodeName !== "IMG") {
     return;
   }
@@ -43,16 +40,16 @@ function onClickImage(evt) {
   );
   instance.show();
 
-  gallery.addEventListener("keydown", evt => {
-    {
-      if (evt.key !== "Escape") {
-        return;
-      }
-      instance.close();
-    }
-  });
 
+  gallery.addEventListener("keydown", onCloseImage);
+
+  function onCloseImage(evt) {
+    if (evt.key !== "Escape") {
+      return;
+    }
+  
+    instance.close(() => gallery.removeEventListener("keydown", onCloseImage));
+  }
 }
 
 gallery.addEventListener("click", onClickImage);
-
