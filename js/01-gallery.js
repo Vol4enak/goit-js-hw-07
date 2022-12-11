@@ -36,20 +36,23 @@ function onClickImage(evt) {
       class="gallery__image"
       src="${evt.target.dataset.source}"
       alt="${evt.target.alt}"
-    />`
+    />`,
+    {
+      onClose: () => document.removeEventListener("keydown", onCloseImage)
+    }
   );
   instance.show();
 
-
-  gallery.addEventListener("keydown", onCloseImage);
+  document.addEventListener("keydown", onCloseImage);
 
   function onCloseImage(evt) {
+    console.log(1);
     if (evt.key !== "Escape") {
       return;
     }
-  
-    instance.close(() => gallery.removeEventListener("keydown", onCloseImage));
+    
+    
+    instance.close();
   }
 }
-
 gallery.addEventListener("click", onClickImage);
